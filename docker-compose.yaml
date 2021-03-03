@@ -1,0 +1,21 @@
+version: '3.6'
+services:
+  application:
+    image: raphaelneves/shipping-api:latest
+    container_name: shipping-api
+    environment:
+      - APPLICATION_ARGS=-DDATA_SOURCE_URL=jdbc:mysql://database:3306/shipping -DDATA_SOURCE_USERNAME=shipping -DDATA_SOURCE_PASSWORD=shipping
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+  database:
+    image: mysql:8
+    container_name: shipping-api-database
+    environment:
+      MYSQL_USER: shipping
+      MYSQL_PASSWORD: shipping
+      MYSQL_ROOT_PASSWORD: shipping
+      MYSQL_DATABASE: shipping
+    ports:
+      - "3306:3306"
